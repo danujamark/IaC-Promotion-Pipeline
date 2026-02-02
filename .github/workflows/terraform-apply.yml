@@ -1,0 +1,37 @@
+name: terraform-apply
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  apply-dev:
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+
+      - name: Init
+        working-directory: environments/dev
+        run: terraform init -input=false
+
+      - name: Apply dev
+        working-directory: environments/dev
+        run: terraform apply -auto-approve -input=false
+
+  apply-pro:
+    needs: apply-dev
+    runs-on: ubuntu-latest
+    environment: pro
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+
+      - name: Init
+        working-directory: environments/pro
+        run: terraform init -input=false
+
+      - name: Apply pro
+        working-directory: environments/pro
+        run: terraform apply -auto-approve -input=false
