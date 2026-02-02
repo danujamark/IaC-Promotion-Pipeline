@@ -11,5 +11,5 @@ variable "env_tag" {
 variable "index_file_path" {
   type        = string
   description = "Path to index.html"
-  default     = "Desktop/nvpInfra-pipeline/cloudformation/index.html"
 }
+
