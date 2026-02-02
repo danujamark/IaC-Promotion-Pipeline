@@ -1,0 +1,28 @@
+name: terraform-plan
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    strategy:
+      matrix:
+        env: [ dev, pro ]
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+
+      - name: Init
+        working-directory: environments/${{ matrix.env }}
+        run: terraform init -input=false
+
+      - name: Plan
+        working-directory: environments/${{ matrix.env }}
+        run: terraform plan -input=false
