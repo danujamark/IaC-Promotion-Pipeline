@@ -1,15 +1,15 @@
-module "vpc" {
-  source = "../../modules/vpc"
-  env_tag = "dev"
-  vpc_cidr = "10.0.0.0/16"
-  subnet_cidr = "10.0.1.0/24"
-  subnet_az = "${var.aws_region}a"
+module "s3" {
+  source = "../../modules/s3"
+
+  bucket_name     = "danuja-webapp-dev-123"
+  env_tag         = "dev"
+  index_file_path = "../../cloudformation/index.html"
 }
-module "ec2" {
-  source = "../../modules/ec2"
-  ami_id = "ami-04233b5aecce09244"
-  instance_type = "t2.micro"
-  subnet_id = module.vpc.subnet_id
-  ec2_count = 1
-  env_tag = "dev"
+
+output "bucket_name" {
+  value = module.s3.bucket_name
+}
+
+output "website_url" {
+  value = module.s3.website_url
 }

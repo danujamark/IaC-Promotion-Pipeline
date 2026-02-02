@@ -15,6 +15,7 @@ resource "aws_subnet" "main" {
     Name = "${var.env_tag}-subnet"
   }
 }
+
 output "subnet_id" {
   value       = aws_subnet.main.id
   description = "created subnet id"

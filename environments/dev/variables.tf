@@ -1,5 +1,5 @@
-variable aws_region {
+variable "aws_region" {
   type        = string
-  default     = "eu-west-1"
-  description = "which aws region to use"
+  default     = "eu-north-1"
+  description = "AWS region to use"
 }
